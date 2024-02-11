@@ -1,0 +1,35 @@
+version: "3.2"
+
+volumes:
+  postgres_data:
+
+services:
+  db:
+    container_name: "fast_db"
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=ppp
+      - POSTGRES_PASSWORD=111
+      - POSTGRES_DB=fastapi
+    ports:
+      - 5432:5432
+    networks:
+      - custom
+    volumes:
+    - postgres_data:/var/lib/postgresql/data/
+  db_test:
+    container_name: "fast_db_test"
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=ppp_test
+      - POSTGRES_PASSWORD=111_test
+      - POSTGRES_DB=fastapi_test
+    ports:
+      - 5433:5432
+    networks:
+      - custom
+networks:
+  custom:
+    driver: bridge
