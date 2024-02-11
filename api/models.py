@@ -1,9 +1,15 @@
 import re
-from typing import Optional
 import uuid
-from typing_extensions import Annotated, Union
+from typing import Optional
+
 from fastapi import HTTPException
-from pydantic import BaseModel, EmailStr, validator, constr, Field
+from pydantic import BaseModel
+from pydantic import constr
+from pydantic import EmailStr
+from pydantic import Field
+from pydantic import validator
+from typing_extensions import Annotated
+from typing_extensions import Union
 
 LETTER_MATCH_PATTERN = re.compile(r"^[а-яА-Яa-zA-Z\-]+$")
 

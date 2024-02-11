@@ -1,17 +1,19 @@
 import asyncio
 import os
-from typing import Any, Generator
+from typing import Any
+from typing import Generator
 
 import asyncpg
 import pytest
 from sqlalchemy import text
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from starlette.testclient import TestClient
 
-from settings import TEST_DATABASE_URL
 from db.session import get_db
 from main import app
+from settings import TEST_DATABASE_URL
 
 # TEST_DATABASE_URL = "postgresql+asyncpg://ppp_test:111_test@127.0.0.1:5433/fastapi_test"
 
@@ -31,18 +33,18 @@ CLEAN_TABLES = [
 ]
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
+# @pytest.fixture(scope="session")
+# def event_loop():
+#     loop = asyncio.get_event_loop_policy().new_event_loop()
+#     yield loop
+#     loop.close()
 
 
-@pytest.fixture(scope="session", autouse=True)
-async def run_migrations():
-    os.system("alembic init tests/migrations")
-    os.system('alembic revision --autogenerate -m "test running applications"')
-    os.system("alembic upgrade heads")
+# @pytest.fixture(scope="session", autouse=True)
+# async def run_migrations():
+#     os.system("alembic init tests/migrations")
+#     os.system('alembic revision --autogenerate -m "test running applications"')
+#     os.system("alembic upgrade heads")
 
 
 @pytest.fixture(scope="session")
@@ -98,7 +100,6 @@ async def asyncpg_pool():
 
 @pytest.fixture
 async def get_user_from_database(asyncpg_pool):
-
     async def get_user_from_database_by_uuid(user_id: str):
         async with asyncpg_pool.acquire() as connection:
             return await connection.fetch(

@@ -1,8 +1,12 @@
-from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Union
-from sqlalchemy import update, and_, select
-from db.models import User
 from uuid import UUID
+
+from sqlalchemy import and_
+from sqlalchemy import select
+from sqlalchemy import update
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from db.models import User
 
 
 class UserDAL:
